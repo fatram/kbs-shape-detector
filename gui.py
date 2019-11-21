@@ -1,12 +1,30 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.filedialog as filedialog
+from PIL import Image
+from PIL import ImageTk
+import cv2
 
 # TODO buttons mechanism
 def open_rule_editor():
     print("Open rule editor")
 
 def open_image():
-    print("Open image")
+    global image_label
+    path = filedialog.askopenfilename()
+    if len(path) > 0:
+        image = cv2.imread(path)
+        image = cv2.resize(image, (300, 300))
+        image = Image.fromarray(image)
+        image = ImageTk.PhotoImage(image)
+        message_image_source.pack_forget()
+        if image_label is None:
+            image_label = tk.Label(frame_image_source, image=image)
+            image_label.image = image
+            image_label.pack()
+        else:
+            image_label.configure(image=image)
+            image_label.image = image
 
 def show_rules():
     print("Show rules")
@@ -15,6 +33,7 @@ def show_facts():
     print("Show facts")
 
 root = tk.Tk()
+image_label = None
 
 # Upper Frame
 frame_upper = tk.Frame(root)
