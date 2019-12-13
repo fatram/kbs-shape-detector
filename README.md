@@ -1,4 +1,3 @@
-
 # KBS Shape Detector
 
 ## Dibuat Oleh
